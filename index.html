@@ -720,7 +720,7 @@ footer {
         <div>
             <h1>Capacite seus Talentos Únicos</h1>
             <p>Empoderamos neurodivergentes a alcançar seu potencial por meio de cursos especializados.</p>
-            <button>Saiba Mais</button>
+            <button id="scrollToAbout">Saiba Mais</button>
         </div>
     </section>
 
@@ -943,6 +943,15 @@ footer {
         });
     };
     </script>
+
+<script>
+    document.getElementById('scrollToAbout').addEventListener('click', function() {
+        document.getElementById('about').scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+</script>
+
 
 </body>
 </html>
