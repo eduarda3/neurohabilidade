@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neurohabilidade</title>
+    <link rel="icon" href="./images/logo.png" type="image/x-icon"> <!-- Favicon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+/* Estilos principais do header */
+header {
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 0.1rem 0;
+    height: 80px;
+}
+
+header .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+/* Ajustando o tamanho da logo */
+header .logo img {
+    max-width: 125px;
+    height: auto;
+    margin-top: 15px;
+}
+
+/* Estilos para o menu no desktop */
+nav {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+nav a {
+    color: #1f1e1e;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #3b5acc;
+}
+
+/* Esconder o menu no mobile inicialmente */
+nav.mobile-menu {
+    display: none;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 999;
+}
+
+/* Quando o menu está ativo no mobile */
+nav.mobile-menu.active {
+    display: flex;
+    transform: translateY(0);
+}
+
+/* Estilo do ícone de hambúrguer para dispositivos móveis */
+.menu-icon {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    position: absolute; /* Altera o posicionamento para 'absolute' */
+    right: 1rem; /* Ajusta o espaçamento da direita */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1001; /* Garante que o ícone fique sobre o conteúdo */
+}
+
+.menu-icon span {
+    background-color: #3b5acc;
+    height: 3px;
+    border-radius: 5px;
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+/* Animação do ícone de hambúrguer quando ativo */
+.menu-icon.active span:nth-child(1) {
+    transform: rotate(45deg) translateY(8px);
+}
+
+.menu-icon.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-icon.active span:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px);
+}
+
+/* Exibir o ícone de hambúrguer apenas no mobile */
+@media (max-width: 768px) {
+    nav {
+        display: none;
+    }
+
+    nav.mobile-menu {
+        display: none;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #fff;
+        padding: 1rem 0;
+        flex-direction: column;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow-x: hidden;
+        transform: translateY(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    nav.mobile-menu.active {
+        display: flex;
+        transform: translateY(0);
+    }
+
+    .menu-icon {
+        display: flex; /* Exibe o ícone de hambúrguer apenas no mobile */
+    }
+}
+
+
+
+
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(177, 163, 163, 0.777), rgba(77, 69, 69, 0.7)), url('https://static.wixstatic.com/media/ba9dc1_94578b03962d4d4e925376484bdabfa0~mv2.jpg/v1/fill/w_1000,h_750,al_c,q_85,usm_0.66_1.00_0.01/ba9dc1_94578b03962d4d4e925376484bdabfa0~mv2.jpg') center/cover no-repeat;
+            height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            background: #ffffff;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .course-card button {
+    width: 100%; /* Faz o botão ocupar toda a largura do link */
+    padding: 1rem 2rem; /* Adiciona o espaçamento desejado no botão */
+    text-align: center;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+    color: rgb(0, 0, 0);
+    border: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-weight: bold;
+}
+
+        .hero button,
+.course-card button,
+.signup-bar button {
+    position: relative; /* Necessário para o pseudo-elemento */
+    border-radius: 8px;
+    background-color: #f7f7f7;
+    color: rgb(0, 0, 0);
+    padding: 1rem 2rem;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    font-weight: bold;
+    z-index: 1; /* Garante que o conteúdo esteja acima da borda */
+}
+
+.hero button::before,
+.course-card button::before,
+.signup-bar button::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(90deg,
+    #FFEB3B, /* Amarelo */
+    #FF9800, /* Laranja */
+    #760d8b, /* Roxo */
+    #4057d6,
+    #3887d1, /* Azul */
+    #6316a1, /* Roxo */
+    #990862  /* Rosa */
+) ; /* Borda com gradiente de arco-íris */
+    z-index: -1;
+    border-radius: 10px; /* Deve ser maior que o do botão para a borda ser visível */
+    padding: 2px; /* Define a "largura" da borda */
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+}
+
+
+/* Efeito hover aprimorado */
+.hero button:hover,
+.course-card button:hover,
+.signup-bar button:hover {
+    background-color: #ffffff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra mais intensa no hover */
+    transform: translateY(-3px); /* Leve elevação */
+}
+
+        main {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: 12rem;
+        }
+
+        .about-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .about-image {
+            flex: 1;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            max-width: 500px;
+            border-radius: 8px;
+        }
+
+        .about-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        .about-text h2 {
+            color: #2a48c0;
+            font-size: 2.5rem;
+        }
+
+        .about-text p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-top: 1rem;
+        }
+
+        /* Responsividade da seção "O que somos" */
+        @media (max-width: 768px) {
+            .about-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .about-image,
+            .about-text {
+                width: 100%;
+            }
+
+            .about-text h2 {
+                font-size: 2rem;
+            }
+
+            .about-text p {
+                font-size: 1rem;
+            }
+        }
+
+      /* Header da seção de cursos */
+.courses-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.courses-header h2 {
+    font-size: 2.5rem;
+    color: #d8b000;;
+}
+
+.courses-header p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center; /* Alinha o texto ao centro */
+}
+
+/* Grid de cursos */
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Mantém 3 colunas */
+    row-gap: 5rem; /* Aumenta o espaçamento entre as linhas */
+    column-gap: 2rem; /* Espaçamento entre colunas */
+    text-align: center;
+}
+
+
+
+/* Cards dos cursos */
+.courses .course-card {
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column; /* Alinha os elementos verticalmente */
+    justify-content: space-between; /* Distribui os elementos no espaço disponível */
+    height: 100%; /* Faz o card ocupar toda a altura disponível */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.course-card h3 {
+    color: #000000;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.course-card p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    flex-grow: 1; /* Permite que o texto ocupe o espaço disponível entre o título e o botão */
+}
+
+.course-card button {
+    background:  #fffefe; /* Define o gradiente como background */
+    color: #333;
+    border: none; /* Remove qualquer borda */
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.course-card button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+    #FFEB3B, /* Amarelo */
+    #FF9800, /* Laranja */
+    #760d8b, /* Roxo */
+    #4057d6,
+    #3887d1, /* Azul */
+    #6316a1, /* Roxo */
+    #990862  /* Rosa */
+) ; /* Borda com gradiente de arco-íris */    z-index: -1;
+    border-radius: 5px;
+    padding: 2px; /* Define a "largura" da borda */
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+}
+
+.course-card button:hover {
+    color: #000000;
+}
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .courses-grid {
+        grid-template-columns: 1fr; /* Ajusta para uma coluna em telas menores */
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+}
+
+.signup-bar {
+    position: relative;
+    background-color: #ffffff;
+    padding: 2rem;
+    text-align: center;
+    border-radius: 20px; /* Aumentei o arredondamento */
+    margin-top: 2rem;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.signup-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.signup-image img {
+    max-width: 100%;
+    border-radius: 20px; /* Arredondei mais a imagem */
+}
+
+.signup-content {
+    text-align: center; /* Centralizei o conteúdo */
+}
+
+.signup-bar h2 {
+    color: #6316a1;
+    font-size: 2rem;
+    margin-bottom: 3rem; /* Maior espaçamento abaixo do título */
+}
+
+.signup-bar input {
+    padding: 1rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 10px; /* Aumentei o arredondamento do input */
+    width: 80%;
+    max-width: 400px;
+    margin-bottom: 2rem; /* Espaçamento maior entre o input e o botão */
+    outline: none;
+}
+
+.signup-bar button {
+    background-color: #ffffff;
+    color: #333;
+    border: 2px solid #4C70FF;
+    padding: 1rem 2rem;
+    border-radius: 10px; /* Aumentei o arredondamento do botão */
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.signup-bar button:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .signup-container {
+        flex-direction: column; /* Alinha os elementos em coluna em telas menores */
+    }
+
+    .signup-content {
+        text-align: center; /* Centraliza o conteúdo em telas menores */
+    }
+}
+
+footer {
+    background-color: #ffffff;
+    color: #333;
+    padding: 1.5rem;
+    text-align: center;
+    border-top: 2px solid; /* Define a espessura da borda */
+    border-image: linear-gradient(90deg,
+        #FFEB3B, /* Amarelo */
+        #FF5722, /* Vermelho */
+        #FF9800, /* Laranja */
+        #3F51B5, /* Azul */
+        #9C27B0, /* Roxo */
+        #E91E63  /* Rosa */
+    ) 1; /* Aplique o gradiente à borda */
+}
+
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .courses {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Seção Impacto na Comunidade */
+.impact-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.impact-text {
+    flex: 1;
+    text-align: left;
+}
+
+.impact-text h2 {
+    color: #d1751f;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.impact-text p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+.impact-image {
+    flex: 1;
+    text-align: right;
+}
+
+.impact-image img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 8px;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .impact-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .impact-image {
+        text-align: center;
+    }
+
+    .impact-image img {
+        max-width: 100%;
+    }
+}
+
+//* Seção Sobre o Futuro do Projeto */
+.future {
+    margin-bottom: 4rem;
+}
+
+.future-text {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.future-text h2 {
+    font-size: 2.5rem;
+    color: #518103;
+}
+
+.future-text p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Novo estilo de card */
+.future-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    justify-content: center;
+}
+
+.new-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+}
+
+.new-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.new-card-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.new-card-content {
+    padding: 1.5rem;
+}
+
+.new-card-content h3 {
+    font-size: 1.6rem;
+    color: #000000;
+    margin-bottom: 1rem;
+}
+
+.new-card-content p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .future-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.email-message {
+    font-size: 1rem;
+    margin-top: 1rem;
+    display: none; /* Oculta inicialmente */
+}
+
+.email-message.success {
+    color: #4CAF50; /* Verde para feedback positivo */
+}
+
+.email-message.error {
+    color: #FF0000; /* Vermelho para feedback de erro */
+}
+
+
+    </style>
+
+
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="./images/logo.png" alt="Logo Infinito Colorido">
+            </div>
+            <nav>
+                <a href="#about">Sobre Nós</a>
+                <a href="#courses">Cursos</a>
+                <a href="#signup">Inscreva-se</a>
+                <a href="#contact">Contato</a>
+            </nav>
+
+            <nav class="mobile-menu">
+                <a href="#about">Sobre Nós</a>
+                <a href="#courses">Cursos</a>
+                <a href="#signup">Inscreva-se</a>
+                <a href="#contact">Contato</a>
+            </nav>
+
+            <div class="menu-icon" id="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div>
+            <h1>Capacite seus Talentos Únicos</h1>
+            <p>Empoderamos neurodivergentes a alcançar seu potencial por meio de cursos especializados.</p>
+            <button>Saiba Mais</button>
+        </div>
+    </section>
+
+    <main data-aos="fade-up">
+        <!-- Seção explicando a rede de ensino -->
+ <!-- Seção explicando a rede de ensino -->
+<section class="about" id="about">
+    <div class="about-container">
+        <div class="about-image">
+            <img src="https://empreendedor.com.br/wp-content/uploads/2024/04/ai-generated-8489712_1920.png" alt="Imagem sobre a rede de ensino">
+        </div>
+        <div class="about-text">
+            <h2>O que é nossa Rede de Ensino?</h2>
+            <p>
+                A comunidade neurodivergente abrange pessoas com condições como autismo, dislexia, TDAH, entre outras.
+                Cada indivíduo tem um estilo de aprendizado único, e o nosso projeto oferece uma plataforma inclusiva, onde eles podem desenvolver suas habilidades sem barreiras.
+                Nosso compromisso é apoiar cada aluno em sua jornada, permitindo que eles aproveitem ao máximo seu potencial.
+                A importância de um ambiente de aprendizado adequado para essas pessoas não pode ser subestimada: ele pode transformar suas vidas, proporcionando
+                oportunidades de trabalho, autonomia e a chance de contribuir para a sociedade de maneira significativa.
+            </p>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Seção dos cursos disponíveis -->
+<section class="courses" id="courses">
+    <!-- Título e Chamada para os cursos -->
+    <div class="courses-header" data-aos="fade-down">
+        <h2>Conheça Nossos Cursos</h2>
+        <p>Explore as oportunidades de aprendizado que preparamos para você. Nossos cursos são inclusivos, acessíveis e projetados para você atingir seu potencial.</p>
+    </div>
+
+    <!-- Cards dos cursos -->
+    <div class="courses-grid">
+        <div class="course-card" data-aos="fade-right">
+            <img src="https://www.mundoconectado.com.br/wp-content/uploads/2022/05/capa-programacao.jpg " alt="Curso de Programação">
+            <h3>Curso de Programação</h3>
+            <p>Aprenda a programar com suporte especializado para diferentes estilos de aprendizado. Nossos cursos focam em inclusão e acessibilidade.</p>
+            <a href="https://www.youtube.com/watch?v=sj0p9O85AIg&list=PL2Fdisxwzt_cajoGVWTx44wM6Ht09QJ3A" target="_blank">
+                <button>Saiba Mais</button>
+            </a>
+        </div>
+        <div class="course-card" data-aos="fade-up">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV_kK5mto_a0QtJ6dpMeHWrPi_3_qdI9nUvw&s" alt="Curso de Design Gráfico">
+            <h3>Curso de Design Gráfico</h3>
+            <p>Explore sua criatividade com ferramentas modernas e suporte inclusivo. Nossas turmas são pequenas para maior atenção ao aluno.</p>
+            <a href="https://www.youtube.com/watch?v=alzW6ciCrjY&list=PLHeCYaC2PB5Nl4kpCDYcrgE1K4we69cl_" target="_blank">
+                <button>Saiba Mais</button>
+            </a>
+        </div>
+        <div class="course-card" data-aos="fade-left">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUmcsb05zcxHrhHZIJSjHatM1WzuLqqGFisw&s" alt="Curso de Marketing Digital">
+            <h3>Curso de Marketing Digital</h3>
+            <p>Domine o marketing digital e as mídias sociais com uma abordagem personalizada e que respeita o tempo de cada aluno.</p>
+            <a href="https://www.youtube.com/watch?v=emtfheMpOkU&list=PL-QAz5R5Rlm7cFW_3DNEYf94dp69hcjqj" target="_blank">
+                <button>Saiba Mais</button>
+            </a>
+        </div>
+        <div class="course-card" data-aos="fade-right">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkyu9NC99qiCG3LCPim0JtZHf2HTrPkUP6AA&s" alt="Curso de Escrita Criativa">
+            <h3>Curso de Escrita Criativa</h3>
+            <p>Desenvolva suas habilidades de escrita com orientação especializada, permitindo que você conte suas próprias histórias de maneira autêntica.</p>
+            <a href="https://www.youtube.com/watch?v=wXtDguX2brQ&list=PLsoTCLdPPdYK_FwgTR1XdW_cpZILIuXp0" target="_blank">
+                <button>Saiba Mais</button>
+            </a>
+        </div>
+        <div class="course-card" data-aos="fade-up">
+            <img src="https://cdn.evg.gov.br/cursos/466_EVG/imagem_curso_466.png" alt="Curso de Fotografia">
+            <h3>Curso de Fotografia</h3>
+            <p>Aprenda técnicas de fotografia e edição em um ambiente inclusivo, onde sua criatividade será incentivada e desenvolvida.</p>
+            <a href="https://www.youtube.com/watch?v=ELnOOyRAVDU&list=PL1sjpj2SalGGlNEKW1Vei2F2gEP7zRY80" target="_blank">
+                <button>Saiba Mais</button>
+            </a>
+        </div>
+        <div class="course-card" data-aos="fade-left">
+            <img src="https://academiatech.s3.amazonaws.com/wp-content/uploads/2023/11/mulher-jogo-07112023-655ac147ae67b-1024x576.webp" alt="Curso de Animação">
+            <h3>Curso de Animação</h3>
+            <p>Aprenda a criar animações e explore o mundo das artes visuais, desenvolvendo histórias visuais com técnicas modernas.</p>
+            <a href="https://www.youtube.com/watch?v=QAZqbkC7iwI&list=PLgd7YPeEWsHrA12_adgHrdgXzUVqtk3sl" target="_blank">
+                <button>Saiba Mais</button>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+   <!-- Seção Impacto na Comunidade -->
+<section class="impact" id="impact">
+    <div class="impact-container">
+        <div class="impact-text">
+            <h2>O Impacto na Vida dos Alunos</h2>
+            <p>
+                Muitos alunos que fazem parte da comunidade neurodivergente relatam uma enorme transformação após se inscreverem em nossos cursos.
+                Ao proporcionar um ambiente de aprendizado que reconhece suas habilidades e estilos únicos, abrimos portas para carreiras que antes pareciam inalcançáveis.
+                Seja na área de tecnologia, marketing, design ou artes, nossos cursos oferecem as ferramentas e o suporte necessários para que cada indivíduo possa
+                trilhar seu próprio caminho, contribuindo com seus talentos para o mundo e ganhando a confiança necessária para alcançar o sucesso.
+            </p>
+        </div>
+        <div class="impact-image">
+            <img src="https://static.wixstatic.com/media/nsplsh_7de7e222dea841938dea92554ab30a0f~mv2.jpg/v1/fill/w_640,h_542,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/nsplsh_7de7e222dea841938dea92554ab30a0f~mv2.jpg" alt="Impacto na Vida dos Alunos">
+        </div>
+    </div>
+</section>
+
+
+<!-- Seção Sobre o Futuro do Projeto -->
+<section class="future" id="future">
+    <div class="future-text">
+        <h2>O Futuro do Projeto</h2>
+        <p>
+            Nossa missão está apenas começando. O projeto continuará a crescer e se expandir, oferecendo novos cursos e oportunidades para cada vez mais pessoas da comunidade neurodivergente.
+            Planejamos aumentar o número de cursos especializados, integrar mais ferramentas de acessibilidade e criar parcerias com empresas que valorizam a diversidade no local de trabalho.
+        </p>
+    </div>
+
+    <!-- Grid de cards com novo estilo -->
+    <div class="future-grid">
+        <div class="new-card">
+            <div class="new-card-image">
+                <img src="https://www.pressmanager.com.br/wp-content/uploads/2020/06/parceria-6.png" alt="Futuro Projeto 1">
+            </div>
+            <div class="new-card-content">
+                <h3>Parcerias Valiosas</h3>
+                <p>Formar parcerias com empresas que valorizam a diversidade.</p>
+            </div>
+        </div>
+
+        <div class="new-card">
+            <div class="new-card-image">
+                <img src="https://cdn2.vectorstock.com/i/1000x1000/35/86/global-business-concept-with-characters-working-vector-22713586.jpg" alt="Futuro Projeto 2">
+            </div>
+            <div class="new-card-content">
+                <h3>Expansão Global</h3>
+                <p>Expandir nossos cursos para mais alunos em todo o mundo.</p>
+            </div>
+        </div>
+
+        <div class="new-card">
+            <div class="new-card-image">
+                <img src="https://www.grupoalbatroz.com.br/site/views/data/blog/image-1607006214.jpg" alt="Futuro Projeto 3">
+            </div>
+            <div class="new-card-content">
+                <h3>Inclusão e Acessibilidade</h3>
+                <p>Integrar mais ferramentas de acessibilidade em todos os cursos.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Seção Barra de Inscrição -->
+<section class="signup-bar" id="signup">
+    <div class="signup-container">
+        <div class="signup-image">
+            <img src="https://static.vecteezy.com/ti/vetor-gratis/p1/2184762-desenho-bonito-criancas-estudando-conceito-design-vetor.jpg" alt="Imagem Incentivo Inscrição">
+        </div>
+        <div class="signup-content">
+            <h2>Inscreva-se agora para começar!</h2>
+            <input type="email" id="email-input" placeholder="Digite seu e-mail">
+            <br>
+            <button id="signup-btn">Inscrever-se</button>
+            <div id="email-message" class="email-message"></div> <!-- Div para a mensagem -->
+        </div>
+    </div>
+</section>
+
+
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2024 Neurohabilidade. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+<script>
+    window.onload = function() {
+        const menuIcon = document.getElementById('menu-icon');
+        const nav = document.querySelector('nav.mobile-menu');
+        const navLinks = nav.querySelectorAll('a');
+        const emailInput = document.getElementById('email-input');
+        const emailMessage = document.getElementById('email-message');
+        const signupBtn = document.getElementById('signup-btn');
+
+        // Mostrar mensagem de confirmação ou erro ao clicar no botão de inscrição
+        signupBtn.addEventListener('click', () => {
+            if (emailInput.value.length > 0) {
+                emailMessage.textContent = "Obrigado por se inscrever! Verifique seu e-mail para mais informações.";
+                emailMessage.classList.remove('error');
+                emailMessage.classList.add('success');
+                emailMessage.style.display = 'block'; // Exibe a mensagem de sucesso
+                emailInput.value = ''; // Limpa o campo de e-mail após o envio
+            } else {
+                emailMessage.textContent = "Por favor, insira um e-mail válido.";
+                emailMessage.classList.remove('success');
+                emailMessage.classList.add('error');
+                emailMessage.style.display = 'block'; // Exibe a mensagem de erro
+            }
+        });
+
+        menuIcon.addEventListener('click', () => {
+            menuIcon.classList.toggle('active');
+            nav.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuIcon.classList.remove('active');
+                nav.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            });
+        });
+    };
+    </script>
+
+</body>
+</html>
